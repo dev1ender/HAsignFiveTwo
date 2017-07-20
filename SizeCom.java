@@ -38,16 +38,16 @@ public class SizeCom implements WritableComparable<SizeCom>{
 	@Override
 	public void readFields(DataInput in) throws IOException {
 		size = in.readInt();
-		Company = in.readLine();
-		product = in.readLine();
+		Company = in.readUTF();
+		product = in.readUTF();
 		
 	}
 
 	@Override
 	public void write(DataOutput out) throws IOException {
 		out.writeInt(size);
-		out.writeChars(Company);
-		out.writeChars(product);
+		out.writeUTF(Company);
+		out.writeUTF(product);
 	}
 
 	@Override
@@ -59,37 +59,37 @@ public class SizeCom implements WritableComparable<SizeCom>{
 	@Override
 	public int compareTo(SizeCom sizecom) {
 			
-		int cmp = (size - sizecom.getSize());
+		int cmp = size - sizecom.getSize();
 		if(cmp !=0){
-			return (-1)*cmp;
+			return (-1)*(size-sizecom.getSize());
 		}
 		
 		return 0;
 	
 	}
-	@Override
+	
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		if(Company.equals("Samsung") ){
+		if(Company.equals("Samsung")){
 			return 0;
 		}
-		if(Company.equals("Onida") ){
+		if(Company.equals("Onida")){
 			return 1;
 		}
-		if(Company.equals("Zen") ){
+		if(Company.equals("Zen")){
 			return 2;
 		}
-		if(Company.equals("Akai") ){
+		if(Company.equals("Akai")){
 			return 3;
 		}
-		if(Company.equals("NA") ){
+		if(Company.equals("NA")){
 			return 4;
 		}
+		else 
+			return 5;
+		}
 		
-		else
-		return 5;
 		
 	}
-}
+
 
 

@@ -64,14 +64,13 @@ public static class Reduce extends Reducer<SizeCom, IntWritable, SizeCom, IntWri
 {
 	//method is used to count the no of tv sold in each state by adding the values of each key
 	@Override
-	protected void reduce(SizeCom key, Iterable<IntWritable> values,
-			Reducer<SizeCom, IntWritable, SizeCom, IntWritable>.Context arg2) throws IOException, InterruptedException {
+	protected void reduce(SizeCom key, Iterable<IntWritable> values, Context Context) throws IOException, InterruptedException {
 		int sum = 0;
 		while(values.iterator().hasNext())
 		{
 			sum+=values.iterator().next().get();
 		}
-		arg2.write(key, new IntWritable(sum));
+		Context.write(key, new IntWritable(sum));
 	}
 	
 
@@ -80,18 +79,6 @@ public static class Reduce extends Reducer<SizeCom, IntWritable, SizeCom, IntWri
 }
 
 
-/*public static class Partition extends Partitioner<Text,IntWritable>{
-
-	@Override
-	public int getPartition(Text key, IntWritable value, int arg2) {
-
-		;
-		return 0;
-
-
-	}
-
-}*/
 
 //main method 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException 
@@ -110,7 +97,7 @@ job.setOutputValueClass(IntWritable.class);
 
 job.setMapperClass(Map.class);
 job.setReducerClass(Reduce.class);
-job.setCombinerClass(Reduce.class);	//combiner class added
+//job.setCombinerClass(Reduce.class);	//combiner class added
 
 
 job.setNumReduceTasks(6);
